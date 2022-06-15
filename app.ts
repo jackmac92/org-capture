@@ -1,3 +1,9 @@
+export function orgCaptureUrlFactoryCore(captureType: string, options = {}) {
+  const cap = new URL(`org-protocol://${captureType}`);
+  cap.search = new URLSearchParams(options).toString();
+  return cap;
+}
+
 export function orgCaptureUrlFactoryFactory(
   captureType: string,
   template: string,
@@ -5,13 +11,12 @@ export function orgCaptureUrlFactoryFactory(
   body: string,
   options = {}
 ) {
-  const cap = new URL(`org-protocol://${captureType}`);
-  cap.search = new URLSearchParams({
+  return orgCaptureUrlFactoryCore(captureType, {
     template,
     body,
     title,
     ...options,
-  }).toString();
+  });
 }
 
 function orgRoamRefCaptureHelper(

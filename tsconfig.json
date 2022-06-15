@@ -1,6 +1,6 @@
 {
   "compilerOptions": {
-    "lib": ["es5", "es6", "dom"],
+    "lib": ["dom"],
     "plugins": [
       {
         "name": "typescript-deno-plugin",
