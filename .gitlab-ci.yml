@@ -4,11 +4,7 @@ include:
     file: "node/core.yml"
   - project: "quickstart-templates/ci-templates"
     ref: master
-    file: "node/typescript.yml"
+    file: "node/meta.yml"
   - project: "quickstart-templates/ci-templates"
     ref: master
-    file: "node/meta.yml"
-
-test:
-  only:
-    - never
+    file: "node/deno.yml"
