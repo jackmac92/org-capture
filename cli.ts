@@ -6,6 +6,7 @@ yargs(Deno.args)
   .command(
     "toUrl",
     "Capture from json arg (or - for stdin json)",
+    // deno-lint-ignore no-explicit-any
     (yargs: any) => {
       yargs.positional("subprotocol", {
         description: "the org-protocol protocol to use",
@@ -20,8 +21,8 @@ yargs(Deno.args)
       return yargs;
     },
     (argv: Arguments) => {
-      let input,
-        inputFile = argv.file;
+      let input;
+      const inputFile = argv.file;
 
       return (async () => {
         if (argv.file !== "-") {
@@ -47,5 +48,5 @@ yargs(Deno.args)
       })();
     }
   )
-  // @ts-expect-error
+  //@ts-expect-error :noidea: for yargs type
   .strictCommands().argv;

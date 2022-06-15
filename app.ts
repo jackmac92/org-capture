@@ -19,16 +19,6 @@ export function orgCaptureUrlFactoryFactory(
   });
 }
 
-function orgRoamRefCaptureHelper(
-  template: string,
-  title: string,
-  body: string
-) {
-  orgCaptureUrlFactoryFactory("roam-ref", template, title, body, {
-    ref: location.href,
-  });
-}
-
 export function orgCaptureHelper(
   template: string,
   title: string,
