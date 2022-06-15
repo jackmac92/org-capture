@@ -29,10 +29,6 @@ function orgRoamRefCaptureHelper(
   });
 }
 
-export function orgRoamRefCapture() {
-  orgRoamRefCaptureHelper("r", document.title, window.getSelection());
-}
-
 export function orgCaptureHelper(
   template: string,
   title: string,
@@ -69,53 +65,6 @@ export function orgCaptureReadable(
     title,
     body,
     options
-  );
-}
-
-export function orgCaptureHtml() {
-  let html = "";
-  const sel = window.getSelection();
-  if (sel.rangeCount) {
-    const container = document.createElement("div");
-    for (let i = 0, len = sel.rangeCount; i < len; ++i) {
-      container.appendChild(sel.getRangeAt(i).cloneContents());
-    }
-    html = container.innerHTML;
-  }
-  // TODO prompt/wait for page cleanup
-  const relToAbs = (href) => {
-    const a = document.createElement("a");
-    a.href = href;
-    const abs = a.protocol + "//" + a.host + a.pathname + a.search + a.hash;
-    a.remove();
-    return abs;
-  };
-  const elementTypes = [
-    ["a", "href"],
-    ["img", "src"],
-  ];
-  const capturecontent = document.createElement("div");
-  capturecontent.innerHTML = html;
-  elementTypes.map((elementType) => {
-    Array.from(capturecontent.getElementsByTagName(elementType[0])).forEach(
-      (el, idx) => {
-        el.setAttribute(
-          elementType[idx],
-          relToAbs(el.getAttribute(elementType[1]))
-        );
-      }
-    );
-  });
-  const captureBody = capturecontent.innerHTML;
-  orgCaptureUrlFactoryFactory(
-    "capture-html",
-    "w",
-    document.title || "[untitled page]",
-    // TODO captureBody seems to be ignored...
-    captureBody,
-    {
-      url: location.href,
-    }
   );
 }
 
