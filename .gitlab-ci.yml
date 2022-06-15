@@ -8,3 +8,7 @@ include:
   - project: "quickstart-templates/ci-templates"
     ref: master
     file: "node/meta.yml"
+
+test:
+  only:
+    - never
