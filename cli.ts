@@ -15,10 +15,9 @@ yargs(Deno.args)
       yargs.default("subprotocol", "capture");
 
       yargs.option("with-dir", {
-        type: "string",
-        optional: true,
+        type: "boolean",
       });
-      yargs.default("with-dir", "");
+      yargs.default("with-dir", false);
 
       yargs.option("file", {
         type: "string",
@@ -32,7 +31,7 @@ yargs(Deno.args)
       const inputFile = argv.file;
 
       return (async () => {
-        if (argv.file !== "-") {
+        if (inputFile !== "-") {
           input = await Deno.readTextFile(inputFile);
         } else {
           const buf = new Uint8Array(1024);
@@ -49,10 +48,7 @@ yargs(Deno.args)
 
         const params = JSON.parse(input);
         if (argv["with-dir"].length > 0) {
-          params["capture-from-directory"] = path.join(
-            Deno.cwd(),
-            argv["with-dir"]
-          );
+          params["capture-from-directory"] = path.dirname(inputFile);
         }
 
         console.log(
