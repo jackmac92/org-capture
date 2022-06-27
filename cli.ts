@@ -1,6 +1,7 @@
 import yargs from "https://deno.land/x/yargs/deno.ts";
 import { Arguments } from "https://deno.land/x/yargs/deno-types.ts";
 import { orgCaptureUrlFactoryCore } from "./app.ts";
+import * as path from "https://deno.land/std/path/mod.ts";
 
 yargs(Deno.args)
   .command(
@@ -12,6 +13,12 @@ yargs(Deno.args)
         description: "the org-protocol protocol to use",
       });
       yargs.default("subprotocol", "capture");
+
+      yargs.option("with-dir", {
+        type: "string",
+        optional: true,
+      });
+      yargs.default("with-dir", "");
 
       yargs.option("file", {
         type: "string",
@@ -41,6 +48,12 @@ yargs(Deno.args)
         }
 
         const params = JSON.parse(input);
+        if (argv["with-dir"].length > 0) {
+          params["capture-from-directory"] = path.join(
+            Deno.cwd(),
+            argv["with-dir"]
+          );
+        }
 
         console.log(
           orgCaptureUrlFactoryCore(argv.subprotocol, params).toString()
