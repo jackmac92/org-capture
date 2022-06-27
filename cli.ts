@@ -17,7 +17,6 @@ yargs(Deno.args)
       yargs.option("with-dir", {
         type: "boolean",
       });
-      yargs.default("with-dir", false);
 
       yargs.option("file", {
         type: "string",
@@ -47,7 +46,7 @@ yargs(Deno.args)
         }
 
         const params = JSON.parse(input);
-        if (argv["with-dir"].length > 0) {
+        if (argv["with-dir"]) {
           params["capture-from-directory"] = path.dirname(inputFile);
         }
 
