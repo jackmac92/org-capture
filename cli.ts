@@ -14,6 +14,9 @@ yargs(Deno.args)
       });
       yargs.default("subprotocol", "capture");
 
+      yargs.option("with-files", {
+        type: "boolean",
+      });
       yargs.option("with-dir", {
         type: "boolean",
       });
@@ -45,12 +48,25 @@ yargs(Deno.args)
           input = new TextDecoder().decode(buf.subarray(0, n));
         }
 
+        const inputFileAbsPath = path.isAbsolute(inputFile)
+          ? inputFile
+          : path.join(Deno.cwd(), inputFile);
+
         const params = JSON.parse(input);
         if (argv["with-dir"]) {
-          const inputFileAbsPath = path.isAbsolute(inputFile)
-            ? inputFile
-            : path.join(Deno.cwd(), inputFile);
           params["capture-from-directory"] = path.dirname(inputFileAbsPath);
+        }
+
+        if (argv["with-files"]) {
+          const attachments = [];
+          for await (const dirEntry of Deno.readDir(
+            path.dirname(inputFileAbsPath)
+          )) {
+            if (dirEntry.isFile && dirEntry.name !== "Dictionary.json") {
+              attachments.push(dirEntry.name);
+            }
+          }
+          params["attachments"] = attachments;
         }
 
         console.log(
