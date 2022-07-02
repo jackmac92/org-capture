@@ -66,7 +66,9 @@ yargs(Deno.args)
               attachments.push(path.join(inputFileAbsPathDir, dirEntry.name));
             }
           }
-          params["attachments"] = attachments;
+          if (attachments.length > 0) {
+            params["attachments"] = attachments;
+          }
         }
 
         console.log(
