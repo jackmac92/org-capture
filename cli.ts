@@ -51,10 +51,10 @@ yargs(Deno.args)
         const inputFileAbsPath = path.isAbsolute(inputFile)
           ? inputFile
           : path.join(Deno.cwd(), inputFile);
-
+        const inputFileAbsPathDir = path.dirname(inputFileAbsPath);
         const params = JSON.parse(input);
         if (argv["with-dir"]) {
-          params["capture-from-directory"] = path.dirname(inputFileAbsPath);
+          params["capture-from-directory"] = inputFileAbsPathDir;
         }
 
         if (argv["with-files"]) {
@@ -63,7 +63,7 @@ yargs(Deno.args)
             path.dirname(inputFileAbsPath)
           )) {
             if (dirEntry.isFile && dirEntry.name !== "Dictionary.json") {
-              attachments.push(dirEntry.name);
+              attachments.push(path.join(inputFileAbsPathDir, dirEntry.name));
             }
           }
           params["attachments"] = attachments;
