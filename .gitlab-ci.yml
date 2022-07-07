@@ -7,6 +7,9 @@ vet:
   tags:
     - jmccown-user
     - shell-exe
+  script:
+    - deno lint app.ts cli.ts
+
 semantic-releaser:
   stage: .post
   tags:
