@@ -10,12 +10,11 @@ await build({
     deno: true,
   },
   package: {
-    // package.json properties
-    name: "your-package",
+    name: "org-protocol-url-from-json",
     version: Deno.args[0],
   },
 });
 
-// post build steps
-Deno.copyFileSync("LICENSE", "npm/LICENSE");
-Deno.copyFileSync("README.md", "npm/README.md");
+// // post build steps
+// Deno.copyFileSync("LICENSE", "npm/LICENSE");
+// Deno.copyFileSync("README.md", "npm/README.md");
