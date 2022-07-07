@@ -8,3 +8,10 @@ include:
   - project: "quickstart-templates/ci-templates"
     ref: master
     file: "node/deno.yml"
+
+semantic-releaser:
+  stage: publish
+  tags:
+    - jmccown-user
+  script:
+    - npx semantic-release

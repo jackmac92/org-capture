@@ -1,0 +1,20 @@
+{
+  "plugins": [
+    ["@semantic-release/npm", {
+      "pkgRoot": "npm"
+    }],
+    "@semantic-release/commit-analyzer",
+    "@semantic-release/release-notes-generator",
+    [
+      "@semantic-release/exec",
+      {
+        "prepareCmd": "deno run -A scripts/build_npm.ts 0.1.0"
+      }
+    ],
+    ["@semantic-release/git",
+      {
+        "message": "chore(release): ${nextRelease.version} \n\n${nextRelease.notes}"
+      }
+    ]
+  ]
+}
