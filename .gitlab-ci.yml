@@ -1,12 +1,6 @@
 include:
   - project: "quickstart-templates/ci-templates"
     ref: master
-    file: "node/core.yml"
-  - project: "quickstart-templates/ci-templates"
-    ref: master
-    file: "node/meta.yml"
-  - project: "quickstart-templates/ci-templates"
-    ref: master
     file: "node/deno.yml"
 
 semantic-releaser:
