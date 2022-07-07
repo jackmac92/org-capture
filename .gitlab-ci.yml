@@ -10,7 +10,7 @@ include:
     file: "node/deno.yml"
 
 semantic-releaser:
-  stage: publish
+  stage: .post
   tags:
     - jmccown-user
   script:
