@@ -6,9 +6,11 @@ include:
 vet:
   tags:
     - jmccown-user
+    - shell-exe
 semantic-releaser:
   stage: .post
   tags:
     - jmccown-user
   script:
     - npx semantic-release
+    - shell-exe
