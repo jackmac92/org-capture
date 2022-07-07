@@ -3,6 +3,9 @@ include:
     ref: master
     file: "node/deno.yml"
 
+vet:
+  tags:
+    - jmccown-user
 semantic-releaser:
   stage: .post
   tags:
