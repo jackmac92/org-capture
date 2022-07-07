@@ -8,7 +8,7 @@ vet:
     - jmccown-user
     - shell-exe
   script:
-    - deno lint app.ts cli.ts
+    - deno lint mod.ts cli.ts
 
 semantic-releaser:
   stage: .post
