@@ -1,14 +1,12 @@
 {
   "plugins": [
-    ["@semantic-release/npm", {
-      "pkgRoot": "npm"
-    }],
     "@semantic-release/commit-analyzer",
     "@semantic-release/release-notes-generator",
     [
       "@semantic-release/exec",
       {
-        "prepareCmd": "deno run -A scripts/build_npm.ts 0.1.0"
+        "publish": "npm publish",
+        "prepareCmd": "deno run -A scripts/build_npm.ts ${nextRelease.version}"
       }
     ],
     ["@semantic-release/git",

@@ -9,6 +9,11 @@ await build({
     // see JS docs for overview and more options
     deno: true,
   },
+  package: {
+    // package.json properties
+    name: "your-package",
+    version: Deno.args[0],
+  },
 });
 
 // post build steps
