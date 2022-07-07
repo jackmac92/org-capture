@@ -14,6 +14,6 @@ semantic-releaser:
   stage: .post
   tags:
     - jmccown-user
+    - shell-exe
   script:
     - npx semantic-release
-    - shell-exe
