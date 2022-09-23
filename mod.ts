@@ -76,3 +76,10 @@ export function orgCaptureDetailsInEmacs(
 ) {
   orgCaptureHelper("fleshout", title, body, options);
 }
+
+export function mkOrgLink(link, name = null) {
+  if (name) {
+    return `[[${link}][${name}]]`;
+  }
+  return `[[${link}]]`;
+}
