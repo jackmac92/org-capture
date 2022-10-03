@@ -16,4 +16,4 @@ semantic-releaser:
     - jmccown-user
     - shell-exe
   script:
-    - npx semantic-release
+    - semantic-release
