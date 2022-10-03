@@ -58,6 +58,12 @@ export function orgCaptureDetailsInEmacs(body: string, options = {}) {
 }
 
 export function mkOrgLink(link: string, name?: string) {
+  try {
+    new URL(link);
+  } catch (e) {
+    // return string if can't parse the link as a link
+    return name ?? link;
+  }
   if (name) {
     return `[[${link}][${name}]]`;
   }
