@@ -61,6 +61,7 @@ export function mkOrgLink(link: string, name?: string) {
   try {
     new URL(link);
   } catch (e) {
+    console.warn(`Unable to parse url as link`, e);
     // return string if can't parse the link as a link
     return name ?? link;
   }
