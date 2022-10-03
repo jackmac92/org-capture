@@ -17,19 +17,6 @@ export function orgCaptureUrlFactoryFactory(
   });
 }
 
-export function orgCaptureUrlFactoryFactory(
-  captureType: string,
-  template: string,
-  body: string,
-  options = {}
-) {
-  return orgCaptureUrlFactoryCore(captureType, {
-    template,
-    body,
-    ...options,
-  });
-}
-
 export function orgCaptureHelper(template: string, body: string, options = {}) {
   return orgCaptureUrlFactoryFactory("story-link", template, body, options);
 }
