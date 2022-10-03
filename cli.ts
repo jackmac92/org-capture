@@ -1,6 +1,6 @@
 import yargs from "https://deno.land/x/yargs/deno.ts";
 import { Arguments } from "https://deno.land/x/yargs/deno-types.ts";
-import { orgCaptureUrlFactoryCore } from "./app.ts";
+import { orgCaptureUrlFactoryCore } from "./mod.ts";
 import * as path from "https://deno.land/std/path/mod.ts";
 
 yargs(Deno.args)
