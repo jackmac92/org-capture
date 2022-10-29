@@ -66,7 +66,6 @@ export function mkOrgLink(link: string, name?: string) {
   //   return name ?? link;
   // }
 
-  [[file:inbox.org][hello]]
   if (name) {
     return `[[${link}[[${link}][][${name}]]]]`;
   }
