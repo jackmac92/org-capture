@@ -58,15 +58,17 @@ export function orgCaptureDetailsInEmacs(body: string, options = {}) {
 }
 
 export function mkOrgLink(link: string, name?: string) {
-  try {
-    new URL(link);
-  } catch (e) {
-    console.warn(`Unable to parse url as link`, e);
-    // return string if can't parse the link as a link
-    return name ?? link;
-  }
+  // try {
+  //   new URL(link);
+  // } catch (e) {
+  //   console.warn(`Unable to parse url as link`, e);
+  //   // return string if can't parse the link as a link
+  //   return name ?? link;
+  // }
+
+  [[file:inbox.org][hello]]
   if (name) {
-    return `[[${link}][${name}]]`;
+    return `[[${link}[[${link}][][${name}]]]]`;
   }
-  return `[[${link}]]`;
+  return `[[${link}[[${link}][]]]]`;
 }
