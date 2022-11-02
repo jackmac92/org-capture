@@ -16,5 +16,6 @@ semantic-releaser:
     - jmccown-user
     - shell-exe
   script:
-    - echo "Note this relies on symlinking ~/.local/pnpm-global/semantic-release to /usr/local/bin"
+    - echo "Too broken at the moment, it could probably run in its own docker image with all semantic release plugins needed pre installed, but running locally is easier"
+    - exit 1
     - semantic-release
