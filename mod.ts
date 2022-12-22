@@ -71,3 +71,11 @@ export function mkOrgLink(link: string, name?: string) {
   }
   return `[[${link}[[${link}][]]]]`;
 }
+
+export function strictMkOrgLink(link: string, name: string) {
+  if (isOrgLink(link)) {
+    return link;
+  }
+  new URL(link);
+  return `[[${link}[[${link}][][${name}]]]]`;
+}
