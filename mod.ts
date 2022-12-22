@@ -57,14 +57,14 @@ export function orgCaptureDetailsInEmacs(body: string, options = {}) {
   orgCaptureHelper("fleshout", body, options);
 }
 
+export function isOrgLink(s: string): boolean {
+  return s.startsWith("[[[[") && s.endsWith("]]]]");
+}
+
 export function mkOrgLink(link: string, name?: string) {
-  // try {
-  //   new URL(link);
-  // } catch (e) {
-  //   console.warn(`Unable to parse url as link`, e);
-  //   // return string if can't parse the link as a link
-  //   return name ?? link;
-  // }
+  if (isOrgLink(link)) {
+    return link;
+  }
 
   if (name) {
     return `[[${link}[[${link}][][${name}]]]]`;
