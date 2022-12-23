@@ -57,6 +57,28 @@ export function orgCaptureDetailsInEmacs(body: string, options = {}) {
   orgCaptureHelper("fleshout", body, options);
 }
 
+export function parseOrgLink(s: string) {
+  const maybeMatches = e.match(/\[\[(\S+)\]\[([\w\s]+)\]\]/)
+  return [maybeMatches.at(1), maybeMatches.at(2)]
+}
+
+export function validateOrgLink(s: string): boolean {
+
+  const [link, title] = parseOrgLink(s)
+
+  try {
+    new URL(link)
+  } catch {
+    return false
+  }
+  if (title === undefined) {
+    return true
+  }
+
+  return title.length > 0 && !isOrgLink(title)
+
+}
+
 export function isOrgLink(s: string): boolean {
   return s.startsWith("[[[[") && s.endsWith("]]]]");
 }
