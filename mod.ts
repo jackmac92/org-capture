@@ -8,7 +8,7 @@ export function orgCaptureUrlFactoryFactory(
   captureType: string,
   template: string,
   body: string,
-  options = {}
+  options = {},
 ) {
   return orgCaptureUrlFactoryCore(captureType, {
     template,
@@ -24,7 +24,7 @@ export function orgCaptureHelper(template: string, body: string, options = {}) {
 export function orgCaptureNonInteractive(
   template: string,
   body: string,
-  options = {}
+  options = {},
 ) {
   return orgCaptureUrlFactoryFactory("capture", template, body, options);
 }
@@ -32,13 +32,13 @@ export function orgCaptureNonInteractive(
 export function orgCaptureReadable(
   template: string,
   body: string,
-  options = {}
+  options = {},
 ) {
   return orgCaptureUrlFactoryFactory(
     "capture-eww-readble",
     template,
     body,
-    options
+    options,
   );
 }
 
@@ -58,25 +58,29 @@ export function orgCaptureDetailsInEmacs(body: string, options = {}) {
 }
 
 export function parseOrgLink(s: string) {
-  const maybeMatches = e.match(/\[\[(\S+)\]\[([\w\s]+)\]\]/)
-  return [maybeMatches.at(1), maybeMatches.at(2)]
+  const maybeMatches = s.match(/\[\[(\S+)\]\[([\w\s]+)\]\]/);
+  if (maybeMatches === null) {
+    return [,];
+  }
+  return [maybeMatches.at(1), maybeMatches.at(2)];
 }
 
 export function validateOrgLink(s: string): boolean {
+  const [link, title] = parseOrgLink(s);
 
-  const [link, title] = parseOrgLink(s)
-
+  if (!link) {
+    return false;
+  }
   try {
-    new URL(link)
+    new URL(link);
   } catch {
-    return false
+    return false;
   }
   if (title === undefined) {
-    return true
+    return true;
   }
 
-  return title.length > 0 && !isOrgLink(title)
-
+  return title.length > 0 && !isOrgLink(title);
 }
 
 export function isOrgLink(s: string): boolean {
