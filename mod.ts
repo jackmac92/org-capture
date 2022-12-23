@@ -72,7 +72,7 @@ export function mkOrgLink(link: string, name?: string) {
   return `[[${link}[[${link}][]]]]`;
 }
 
-export function strictMkOrgLink(link: string, name: string) {
+export function strictMkOrgLink(link: string) {
   if (isOrgLink(link)) {
     return link;
   }
