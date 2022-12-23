@@ -6,6 +6,7 @@
       "@semantic-release/exec",
       {
         "prepareCmd": "deno run -A scripts/build_npm.ts ${nextRelease.version}",
+        "success": "rm -rf dist-npm"
       }
     ],
     ["@semantic-release/npm",
