@@ -1,10 +1,11 @@
 import { build, emptyDir } from "https://deno.land/x/dnt/mod.ts";
 
-await emptyDir("./npm");
+const outDir = "./dist-npm";
+await emptyDir(outDir);
 
 await build({
+  outDir,
   entryPoints: ["./mod.ts"],
-  outDir: "./npm",
   shims: {
     // see JS docs for overview and more options
     deno: true,
