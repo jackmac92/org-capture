@@ -1,60 +1,7 @@
 include:
   - project: "quickstart-templates/ci-templates"
     ref: master
-    file: "node/deno.yml"
+    file: "deno.yml"
 
 variables:
   JM_DENO_FILES: mod.ts cli.ts
-
-semantic-releaser:
-  stage: .post
-  tags:
-    - jmccown-user
-    - shell-exe
-  script:
-    - echo "$PATH"
-    - semantic-release
-    - cd dist-npm
-    - |
-      echo 'import { build, emptyDir } from "https://deno.land/x/dnt/mod.ts";
-            const outDir = "./dist-npm";
-            await emptyDir(outDir);
-
-            await build({
-              outDir,
-              entryPoints: ["./mod.ts"],
-              shims: {
-                // see JS docs for overview and more options
-                deno: true,
-              },
-              package: {
-                name: "org-protocol-url-from-json",
-                version: Deno.args[0],
-              },
-            });' > npmBuild.ts
-    - |
-      echo '{
-        "plugins": [
-          "@semantic-release/commit-analyzer",
-          "@semantic-release/release-notes-generator",
-          [
-            "@semantic-release/exec",
-            {
-              "prepareCmd": "deno run -A npmBuild.ts ${nextRelease.version}"
-            }
-          ],
-          ["@semantic-release/git",
-            {
-              "message": "chore(release): ${nextRelease.version} \n\n${nextRelease.notes}"
-            }
-          ]
-        ]
-      }' > .releaserc
-    - echo "//registry.npmjs.org/:_authToken=${NPM_TOKEN}" > .npmrc
-    - npm publish
-    - rm -f .npmrc
-  artifacts:
-    when: on_failure
-    untracked: true
-    paths:
-      - dist-npm
