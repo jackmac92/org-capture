@@ -11,12 +11,11 @@ semantic-releaser:
   tags:
     - jmccown-user
     - shell-exe
-  before_script:
-    - echo "//registry.npmjs.org/:_authToken=${NPM_TOKEN}" > .npmrc
   script:
     - echo "$PATH"
     - semantic-release
     - cd dist-npm
+    - echo "//registry.npmjs.org/:_authToken=${NPM_TOKEN}" > .npmrc
     - npm publish
     - rm -f .npmrc
   artifacts:
