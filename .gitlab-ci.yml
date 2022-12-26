@@ -3,12 +3,8 @@ include:
     ref: master
     file: "node/deno.yml"
 
-vet:
-  tags:
-    - jmccown-user
-    - shell-exe
-  script:
-    - deno lint mod.ts cli.ts
+variables:
+  JM_DENO_FILES: mod.ts cli.ts
 
 semantic-releaser:
   stage: .post
