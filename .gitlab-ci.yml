@@ -20,3 +20,8 @@ semantic-releaser:
     - semantic-release
     - ls
     - npm --prefix dist-npm publish
+  artifacts:
+    when: on_failure
+    untracked: true
+    paths:
+      - dist-npm
