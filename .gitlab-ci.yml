@@ -14,8 +14,8 @@ semantic-releaser:
   script:
     - echo "$PATH"
     - semantic-release
-    - ls
-    - npm --prefix dist-npm publish
+    - cd dist-npm
+    - npm publish
   artifacts:
     when: on_failure
     untracked: true
