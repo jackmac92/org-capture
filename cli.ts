@@ -53,7 +53,6 @@ yargs(Deno.args)
           : path.join(Deno.cwd(), inputFile);
         const inputFileAbsPathDir = path.dirname(inputFileAbsPath);
         const params = JSON.parse(input);
-        params["from-deno-json"] = 1;
         if (argv["with-dir"]) {
           params["capture-from-directory"] = inputFileAbsPathDir;
         }

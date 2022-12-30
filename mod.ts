@@ -1,5 +1,6 @@
 export function orgCaptureUrlFactoryCore(captureType: string, options = {}) {
   const cap = new URL(`org-protocol://${captureType}`);
+  options["from-deno-json"] = 1;
   cap.search = new URLSearchParams(options).toString();
   return cap;
 }
@@ -8,7 +9,7 @@ export function orgCaptureUrlFactoryFactory(
   captureType: string,
   template: string,
   body: string,
-  options = {},
+  options = {}
 ) {
   return orgCaptureUrlFactoryCore(captureType, {
     template,
@@ -24,7 +25,7 @@ export function orgCaptureHelper(template: string, body: string, options = {}) {
 export function orgCaptureNonInteractive(
   template: string,
   body: string,
-  options = {},
+  options = {}
 ) {
   return orgCaptureUrlFactoryFactory("capture", template, body, options);
 }
@@ -32,13 +33,13 @@ export function orgCaptureNonInteractive(
 export function orgCaptureReadable(
   template: string,
   body: string,
-  options = {},
+  options = {}
 ) {
   return orgCaptureUrlFactoryFactory(
     "capture-eww-readble",
     template,
     body,
-    options,
+    options
   );
 }
 
