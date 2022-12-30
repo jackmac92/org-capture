@@ -53,17 +53,16 @@ yargs(Deno.args)
           : path.join(Deno.cwd(), inputFile);
         const inputFileAbsPathDir = path.dirname(inputFileAbsPath);
         const params = JSON.parse(input);
+        params["from-deno-json"] = 1;
         if (argv["with-dir"]) {
           params["capture-from-directory"] = inputFileAbsPathDir;
         }
 
         if (argv["with-files"]) {
           const attachments = [];
-          for await (
-            const dirEntry of Deno.readDir(
-              path.dirname(inputFileAbsPath),
-            )
-          ) {
+          for await (const dirEntry of Deno.readDir(
+            path.dirname(inputFileAbsPath)
+          )) {
             if (dirEntry.isFile && dirEntry.name !== "Dictionary.json") {
               attachments.push(path.join(inputFileAbsPathDir, dirEntry.name));
             }
@@ -74,10 +73,10 @@ yargs(Deno.args)
         }
 
         console.log(
-          orgCaptureUrlFactoryCore(argv.subprotocol, params).toString(),
+          orgCaptureUrlFactoryCore(argv.subprotocol, params).toString()
         );
       })();
-    },
+    }
   )
   //@ts-expect-error :noidea: for yargs type
   .strictCommands().argv;
