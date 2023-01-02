@@ -1,12 +1,25 @@
-export function orgCaptureUrlFactoryCore(captureType: string, options = {}) {
+type capTypes = "capture-eww-readable" | "capture" | "story-link";
+
+type captureOptions = {
+  "from-deno-json"?: string;
+  template?: string;
+  body?: string;
+};
+
+const defaultCaptureOptions: captureOptions = {};
+
+export function orgCaptureUrlFactoryCore(
+  captureType: capTypes,
+  options = defaultCaptureOptions
+) {
   const cap = new URL(`org-protocol://${captureType}`);
-  options["from-deno-json"] = 1;
+  options["from-deno-json"] = "1";
   cap.search = new URLSearchParams(options).toString();
   return cap;
 }
 
 export function orgCaptureUrlFactoryFactory(
-  captureType: string,
+  captureType: capTypes,
   template: string,
   body: string,
   options = {}
@@ -36,7 +49,7 @@ export function orgCaptureReadable(
   options = {}
 ) {
   return orgCaptureUrlFactoryFactory(
-    "capture-eww-readble",
+    "capture-eww-readable",
     template,
     body,
     options
