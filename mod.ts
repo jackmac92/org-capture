@@ -1,6 +1,6 @@
-type capTypes = "capture-eww-readable" | "capture" | "story-link";
+export type capTypes = "capture-eww-readable" | "capture" | "story-link";
 
-type captureOptions = {
+export type captureOptions = {
   "from-deno-json"?: string;
   template?: string;
   body?: string;
