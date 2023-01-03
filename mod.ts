@@ -125,3 +125,13 @@ export function strictMkOrgLink(link: string, name: string) {
   new URL(link);
   return `[[${link}[[${link}][][${name}]]]]`;
 }
+
+export function orgRoamRefCaptureHelper(template, title, body) {
+  orgCaptureHelperBase("roam-ref", template, title, body, {
+    ref: location.href,
+  });
+}
+
+export function orgRoamRefCapture() {
+  orgRoamRefCaptureHelper("r", document.title, window.getSelection());
+}
