@@ -1,0 +1,32 @@
+{
+  "compilerOptions": {
+    "strict": true,
+    "lib": ["deno.window"],
+  },
+  "lint": {
+    "files": {
+      "include": ["app.ts", "cli.ts"]
+    },
+    "rules": {
+      "tags": ["recommended"],
+      "include": ["ban-untagged-todo"]
+    }
+  },
+  "fmt": {
+    "files": {
+      "include": ["app.ts", "cli.ts"]
+    },
+    "options": {
+      "useTabs": false,
+      "lineWidth": 80,
+      "indentWidth": 2,
+      "singleQuote": true,
+      "proseWrap": "preserve"
+    }
+  },
+  "test": {
+    "files": {
+      "include": ["app.ts", "cli.ts"]
+    }
+  }
+}
