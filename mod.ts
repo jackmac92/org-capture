@@ -9,6 +9,9 @@ export type capTypes =
 export type captureOptions = {
   "from-deno-json"?: string;
   template?: string;
+  sessionId?: string;
+  ref?: string;
+  url?: string;
   body?: string;
 };
 
@@ -16,7 +19,7 @@ const defaultCaptureOptions: captureOptions = {};
 
 export function orgCaptureUrlFactoryCore(
   captureType: capTypes,
-  options = defaultCaptureOptions
+  options = defaultCaptureOptions,
 ) {
   const cap = new URL(`org-protocol://${captureType}`);
   options["from-deno-json"] = "1";
@@ -28,7 +31,7 @@ export function orgCaptureUrlFactoryFactory(
   captureType: capTypes,
   template: string,
   body: string,
-  options = {}
+  options = defaultCaptureOptions,
 ) {
   return orgCaptureUrlFactoryCore(captureType, {
     template,
@@ -37,14 +40,18 @@ export function orgCaptureUrlFactoryFactory(
   });
 }
 
-export function orgCaptureHelper(template: string, body: string, options = {}) {
+export function orgCaptureHelper(
+  template: string,
+  body: string,
+  options = defaultCaptureOptions,
+) {
   return orgCaptureUrlFactoryFactory("story-link", template, body, options);
 }
 
 export function orgCaptureNonInteractive(
   template: string,
   body: string,
-  options = {}
+  options = defaultCaptureOptions,
 ) {
   return orgCaptureUrlFactoryFactory("capture", template, body, options);
 }
@@ -52,13 +59,13 @@ export function orgCaptureNonInteractive(
 export function orgCaptureReadable(
   template: string,
   body: string,
-  options = {}
+  options = defaultCaptureOptions,
 ) {
   return orgCaptureUrlFactoryFactory(
     "capture-eww-readable",
     template,
     body,
-    options
+    options,
   );
 }
 
@@ -73,7 +80,10 @@ export function orgCaptureNote(body: string) {
   orgCaptureNonInteractive("n", body);
 }
 
-export function orgCaptureDetailsInEmacs(body: string, options = {}) {
+export function orgCaptureDetailsInEmacs(
+  body: string,
+  options = defaultCaptureOptions,
+) {
   orgCaptureHelper("fleshout", body, options);
 }
 
@@ -126,12 +136,35 @@ export function strictMkOrgLink(link: string, name: string) {
   return `[[${link}[[${link}][][${name}]]]]`;
 }
 
-export function orgRoamRefCaptureHelper(template, title, body) {
+export function orgCaptureHelperBase(
+  captureType: capTypes,
+  template: string,
+  title: string,
+  body: string,
+  options = defaultCaptureOptions,
+) {
+  const sessId = document
+    .getElementById("super-personal-cookie-session-id")
+    ?.getAttribute("session-id");
+  if (sessId) {
+    options.sessionId = sessId;
+  }
+
+  const body1 = [title, body].filter(Boolean).join("\n");
+
+  return orgCaptureUrlFactoryFactory(captureType, template, body1, options);
+}
+
+export function orgRoamRefCaptureHelper(
+  template: string,
+  title: string,
+  body: string,
+) {
   orgCaptureHelperBase("roam-ref", template, title, body, {
     ref: location.href,
   });
 }
 
 export function orgRoamRefCapture() {
-  orgRoamRefCaptureHelper("r", document.title, window.getSelection());
+  orgRoamRefCaptureHelper("r", document.title, String(window.getSelection()));
 }
