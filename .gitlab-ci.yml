@@ -4,4 +4,4 @@ include:
     file: "deno.yml"
 
 variables:
-  JM_DENO_FILES: mod.ts cli.ts
+  JM_DENO_FILES: "mod.ts cli.ts"
