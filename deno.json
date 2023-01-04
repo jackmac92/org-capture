@@ -1,7 +1,7 @@
 {
   "compilerOptions": {
     "strict": true,
-    "lib": ["deno.window", "dom"]
+    "lib": ["deno.window", "dom", "deno.ns", "deno.unstable"]
   },
   "lint": {
     "files": {
