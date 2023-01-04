@@ -19,7 +19,7 @@ const defaultCaptureOptions: captureOptions = {};
 
 export function orgCaptureUrlFactoryCore(
   captureType: capTypes,
-  options = defaultCaptureOptions,
+  options = defaultCaptureOptions
 ) {
   const cap = new URL(`org-protocol://${captureType}`);
   options["from-deno-json"] = "1";
@@ -31,7 +31,7 @@ export function orgCaptureUrlFactoryFactory(
   captureType: capTypes,
   template: string,
   body: string,
-  options = defaultCaptureOptions,
+  options = defaultCaptureOptions
 ) {
   return orgCaptureUrlFactoryCore(captureType, {
     template,
@@ -43,7 +43,7 @@ export function orgCaptureUrlFactoryFactory(
 export function orgCaptureHelper(
   template: string,
   body: string,
-  options = defaultCaptureOptions,
+  options = defaultCaptureOptions
 ) {
   return orgCaptureUrlFactoryFactory("story-link", template, body, options);
 }
@@ -51,7 +51,7 @@ export function orgCaptureHelper(
 export function orgCaptureNonInteractive(
   template: string,
   body: string,
-  options = defaultCaptureOptions,
+  options = defaultCaptureOptions
 ) {
   return orgCaptureUrlFactoryFactory("capture", template, body, options);
 }
@@ -59,13 +59,13 @@ export function orgCaptureNonInteractive(
 export function orgCaptureReadable(
   template: string,
   body: string,
-  options = defaultCaptureOptions,
+  options = defaultCaptureOptions
 ) {
   return orgCaptureUrlFactoryFactory(
     "capture-eww-readable",
     template,
     body,
-    options,
+    options
   );
 }
 
@@ -82,7 +82,7 @@ export function orgCaptureNote(body: string) {
 
 export function orgCaptureDetailsInEmacs(
   body: string,
-  options = defaultCaptureOptions,
+  options = defaultCaptureOptions
 ) {
   orgCaptureHelper("fleshout", body, options);
 }
@@ -141,7 +141,7 @@ export function orgCaptureHelperBase(
   template: string,
   title: string,
   body: string,
-  options = defaultCaptureOptions,
+  options = defaultCaptureOptions
 ) {
   const sessId = document
     .getElementById("super-personal-cookie-session-id")
@@ -158,7 +158,7 @@ export function orgCaptureHelperBase(
 export function orgRoamRefCaptureHelper(
   template: string,
   title: string,
-  body: string,
+  body: string
 ) {
   orgCaptureHelperBase("roam-ref", template, title, body, {
     ref: location.href,
