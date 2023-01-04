@@ -1,11 +1,11 @@
 {
   "compilerOptions": {
     "strict": true,
-    "lib": ["deno.window"],
+    "lib": ["deno.window", "dom"]
   },
   "lint": {
     "files": {
-      "include": ["app.ts", "cli.ts"]
+      "include": ["mod.ts", "cli.ts"]
     },
     "rules": {
       "tags": ["recommended"],
@@ -14,19 +14,19 @@
   },
   "fmt": {
     "files": {
-      "include": ["app.ts", "cli.ts"]
+      "include": ["mod.ts", "cli.ts"]
     },
     "options": {
       "useTabs": false,
       "lineWidth": 80,
       "indentWidth": 2,
-      "singleQuote": true,
+      "singleQuote": false,
       "proseWrap": "preserve"
     }
   },
   "test": {
     "files": {
-      "include": ["app.ts", "cli.ts"]
+      "include": ["mod.ts", "cli.ts"]
     }
   }
 }
