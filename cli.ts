@@ -3,6 +3,8 @@ import { Arguments } from "https://deno.land/x/yargs/deno-types.ts";
 import { orgCaptureUrlFactoryCore } from "./mod.ts";
 import * as path from "https://deno.land/std/path/mod.ts";
 
+const encoder = new TextEncoder();
+
 yargs(Deno.args)
   .command(
     "toUrl",
@@ -59,11 +61,13 @@ yargs(Deno.args)
 
         if (argv["with-files"]) {
           const attachments = [];
-          for await (
-            const dirEntry of Deno.readDir(
-              path.dirname(inputFileAbsPath),
-            )
-          ) {
+          for await (const dirEntry of Deno.readDir(
+            path.dirname(inputFileAbsPath),
+          )) {
+            await Deno.stderr.write(
+              encoder.encode(`Checking ${dirEntry.name}`),
+            );
+
             if (dirEntry.isFile && dirEntry.name !== "Dictionary.json") {
               attachments.push(path.join(inputFileAbsPathDir, dirEntry.name));
             }
