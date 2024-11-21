@@ -35,9 +35,6 @@ yargs(Deno.args)
       const inputFile = argv.file;
 
       return (async () => {
-        await Deno.stderr.write(
-          encoder.encode(`\n\n\nGot input file: ${inputFile}`),
-        );
         if (inputFile !== "-") {
           input = await Deno.readTextFile(inputFile);
         } else {
@@ -63,10 +60,6 @@ yargs(Deno.args)
         if (argv["with-files"]) {
           const attachments = [];
           for await (const dirEntry of Deno.readDir(inputFileAbsPathDir)) {
-            await Deno.stderr.write(
-              encoder.encode(`Checking ${dirEntry.name}\n`),
-            );
-
             if (dirEntry.isFile && dirEntry.name !== "Dictionary.json") {
               attachments.push(path.join(inputFileAbsPathDir, dirEntry.name));
             }
