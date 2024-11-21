@@ -77,7 +77,7 @@ yargs(Deno.args)
           if (attachments.length > 0) {
             await Deno.stderr.write(
               encoder.encode(
-                `\n\n\nFound attachments w/in ${inputFileAbsPathDir}\n`,
+                `\n\n\nFound attachments w/in ${inputFileAbsPathDir}\n\n${inputFileAbsPath}`,
               ),
             );
             params["attachments"] = attachments;
