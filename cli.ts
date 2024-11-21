@@ -35,6 +35,9 @@ yargs(Deno.args)
       const inputFile = argv.file;
 
       return (async () => {
+        await Deno.stderr.write(
+          encoder.encode(`\n\n\nGot input file: ${inputFile}`),
+        );
         if (inputFile !== "-") {
           input = await Deno.readTextFile(inputFile);
         } else {
@@ -50,9 +53,6 @@ yargs(Deno.args)
           input = new TextDecoder().decode(buf.subarray(0, n));
         }
 
-        if (!path.isAbsolute(inputFile)) {
-          throw Error("Must provide an absolute path");
-        }
         const inputFileAbsPath = inputFile;
         const inputFileAbsPathDir = path.dirname(inputFileAbsPath);
         const params = JSON.parse(input);
@@ -68,18 +68,10 @@ yargs(Deno.args)
             );
 
             if (dirEntry.isFile && dirEntry.name !== "Dictionary.json") {
-              await Deno.stderr.write(
-                encoder.encode(`Adding ${dirEntry.name}\n`),
-              );
               attachments.push(path.join(inputFileAbsPathDir, dirEntry.name));
             }
           }
           if (attachments.length > 0) {
-            await Deno.stderr.write(
-              encoder.encode(
-                `\n\n\nFound attachments w/in ${inputFileAbsPathDir}\n\n${inputFileAbsPath}`,
-              ),
-            );
             params["attachments"] = attachments;
           }
         }
