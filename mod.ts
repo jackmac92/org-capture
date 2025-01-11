@@ -170,5 +170,9 @@ export function orgRoamRefCaptureHelper(
 }
 
 export function orgRoamRefCapture() {
-  orgRoamRefCaptureHelper("r", document.title, String(window.getSelection()));
+  orgRoamRefCaptureHelper(
+    "r",
+    document.title,
+    String(globalThis.getSelection()),
+  );
 }
